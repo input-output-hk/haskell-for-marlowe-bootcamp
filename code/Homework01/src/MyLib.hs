@@ -8,3 +8,4 @@
 
 -- Write a function that checks if the volume of a cylinder is greater than or equal to 42. Test that it works using GHCi.
 
+multi3 x = 3 * x
