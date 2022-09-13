@@ -24,8 +24,9 @@ And to see the video, click on the button that looks like this:
 1. Clone this repository.
 2. Create a [GitPod](https://www.gitpod.io/) account.
 3. Click this button to create a remote dev environment: [![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=flat&logo=visual-studio-code&logoColor=white)](https://gitpod.io/#https://github.com/input-output-hk/haskell-course)
-4. Select the `code/HomeworkXX` folder with the homework you want to complete.
+4. Select the `Homework/HomeworkXX` folder with the homework you want to complete.
 5. Follow the instructions inside the app/Main.hs file.
+6. Check the solutions in the "solutions" branch!
 
 #### Repository structure
 
