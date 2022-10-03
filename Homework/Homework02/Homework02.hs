@@ -3,14 +3,17 @@
 -- Add the type signatures for the functions below and then remove the comments and try to compile.
 -- (Use the types presented in the lecture.)
 
--- f1 x y z = x ** (y/z)
+f1 :: float -> float -> float -> float
+f1 x y z = x * (y/z)
 
--- f2 x y z = sqrt (x/y - z)
+f2 :: float -> float -> float -> float
+f2 x y z = sqrt (x/y - z)
 
--- f3 x y = [x == True] ++ [y]
+f3 :: boolean -> boolean -> boolean
+f3 x y = [x == True] ++ [y]
 
--- f4 x y z = x == (y ++ z)
-
+f4 :: string -> string -> string -> string
+f4 x y z = x == (y ++ z)
 
 -- Question 2
 -- Are really all variables in Haskell immutable? Try googling for the answer.
