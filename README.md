@@ -80,9 +80,7 @@ Everything else can be safely ignored
   - How to open and use GitPod
   - Example of how to complete a homework assignment.
 
-
 ### 2. Data types, Signatures, and Polymorphism [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/input-output-hk/haskell-course/HEAD?labpath=%2Flessons%2F02-Functions-Data-Types-and-Signatures.ipynb) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)](https://youtu.be/RABzYje2d2A)
-
 
 - Pragmatic intro to types
 - Type signature
@@ -120,13 +118,19 @@ Everything else can be safely ignored
   - Tuples
 - Case
 
-### 5. Improving and combining functions
+### 5. Improving and combining functions [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/input-output-hk/haskell-course/HEAD?labpath=%2Flessons%2F05-Improving-and-combining-functions.ipynb) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)](https://youtu.be/E-OEw4FKdf4)
 
 - Higher-order functions
-- Curried functions
-- Partial application
-- Composing and applying functions (`.` and `$` operators)
+  - The `filter` function
+  - The `any` function
 - Lambda functions
+- Precedence and associativity
+- Curried functions
+  - Partial application
+- Composing and applying functions
+  - The `$` operator
+  - The `.` operator
+- Point-free style
 
 ### 6. Recursion
 
@@ -300,8 +304,8 @@ Everything else can be safely ignored
 ### 24. Monadic functions / Operating with Monads
 
 - liftM
-- sequence and sequence_
-- mapM and mapM_
+- sequence and sequence\_
+- mapM and mapM\_
 - filterM
 - foldM
 
