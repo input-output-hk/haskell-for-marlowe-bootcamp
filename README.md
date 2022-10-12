@@ -24,8 +24,9 @@ And to see the video, click on the button that looks like this:
 1. Clone this repository.
 2. Create a [GitPod](https://www.gitpod.io/) account.
 3. Click this button to create a remote dev environment: [![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=flat&logo=visual-studio-code&logoColor=white)](https://gitpod.io/#https://github.com/input-output-hk/haskell-course)
-4. Select the `code/HomeworkXX` folder with the homework you want to complete.
+4. Select the `Homework/HomeworkXX` folder with the homework you want to complete.
 5. Follow the instructions inside the app/Main.hs file.
+6. Check the solutions in the "solutions" branch!
 
 #### Repository structure
 
@@ -44,9 +45,18 @@ And to see the video, click on the button that looks like this:
 
 Everything else can be safely ignored
 
+## To hang out and discuss with other students
+
+- [Canvas](https://iohk.instructure.com/enroll/3BAAGG)
+- [IOG's technical community (check out the #ask-haskell channel!)](https://discord.gg/inputoutput)
+
 ## FAQ
 
 [FAQ](FAQ.md)
+
+## Proposed changes for next iteration/version
+
+[Changes](Changes.md)
 
 ## What we'll cover
 
@@ -70,9 +80,7 @@ Everything else can be safely ignored
   - How to open and use GitPod
   - Example of how to complete a homework assignment.
 
-
 ### 2. Data types, Signatures, and Polymorphism [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/input-output-hk/haskell-course/HEAD?labpath=%2Flessons%2F02-Functions-Data-Types-and-Signatures.ipynb) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)](https://youtu.be/RABzYje2d2A)
-
 
 - Pragmatic intro to types
 - Type signature
@@ -92,15 +100,16 @@ Everything else can be safely ignored
   - Tuples + Tuples VS Lists
 - Polymorphic values and type variables
 
-### 3. Conditions and helper constructions
+### 3. Conditions and helper constructions [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/input-output-hk/haskell-course/HEAD?labpath=%2Flessons%2F03-Conditions-and-helper-constructions.ipynb) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=G0XPELNZuws)
 
 - If-then-else
 - Guards
-- `let`
+- `let` expressions
 - `where`
-- Using `let` and `where` together
+- Should I use `let` or `where`?
+- Things to keep in mind
 
-### 4. Pattern matching and Case
+### 4. Pattern matching and Case [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/input-output-hk/haskell-course/HEAD?labpath=%2Flessons%2F04-Pattern-matching.ipynb) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=sQPGN4b95DU)
 
 - What is pattern matching
 - Pattern matching on
@@ -109,13 +118,19 @@ Everything else can be safely ignored
   - Tuples
 - Case
 
-### 5. Improving and combining functions
+### 5. Improving and combining functions [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/input-output-hk/haskell-course/HEAD?labpath=%2Flessons%2F05-Improving-and-combining-functions.ipynb) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)](https://youtu.be/E-OEw4FKdf4)
 
 - Higher-order functions
-- Curried functions
-- Partial application
-- Composing and applying functions (`.` and `$` operators)
+  - The `filter` function
+  - The `any` function
 - Lambda functions
+- Precedence and associativity
+- Curried functions
+  - Partial application
+- Composing and applying functions
+  - The `$` operator
+  - The `.` operator
+- Point-free style
 
 ### 6. Recursion
 
@@ -289,8 +304,8 @@ Everything else can be safely ignored
 ### 24. Monadic functions / Operating with Monads
 
 - liftM
-- sequence and sequence_
-- mapM and mapM_
+- sequence and sequence\_
+- mapM and mapM\_
 - filterM
 - foldM
 

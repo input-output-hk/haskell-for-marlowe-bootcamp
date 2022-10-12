@@ -1,4 +1,3 @@
-
 -- Question 1
 -- Write a multiline comment below.
 {- This is a multiline comment.

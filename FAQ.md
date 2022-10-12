@@ -15,7 +15,7 @@ NO!
 - The cloud service we use to host the interactive versions is also free.
 - And the GitPod instance we use to run the VSCode has a free tier of 50 hs/month, which we believe will be more than enough. In the case you need more than 50 hs/month to do the homework, you can clone the repo and run everything locally (You can install everything using [GHCup](https://www.haskell.org/ghcup/).
 
-### I want something to bee different!
+### I want something to be different!
 
 Tell us! We want this to be an easy and fun way to learn Haskell. If the community want's something different, we'll adapt the course!
 

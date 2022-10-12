@@ -1,0 +1,1467 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "source": [
+    "# Pattern matching and Case expressions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "source": [
+    "## Outline\n",
+    "\n",
+    "* Pattern matching in functions\n",
+    "    * Catch-all patterns\n",
+    "* Closer look at lists\n",
+    "* Pattern matching \n",
+    "    * Lists\n",
+    "    * Tuples\n",
+    "* Case expressions\n",
+    "* Declaration style VS Expression style"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "source": [
+    "## Pattern matching\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "source": [
+    "**Pattern matching** is the act of matching data (values, types, etc.) against a pattern, optionally binding variables to successful matches."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "skip"
+    }
+   },
+   "source": [
+    "We are going to discuss pattern matching in three cases:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "skip"
+    }
+   },
+   "source": [
+    "* Pattern matching in function definitions.\n",
+    "\n",
+    "* Pattern matching for lists.\n",
+    "\n",
+    "* Pattern matching for tuples."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "It sounds complicated, but it's actually pretty intuitive when you get the hang of it. It'll be clear as day after a few examples."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Let's pattern match some functions!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "source": [
+    "## Pattern matching in functions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Remember `specialBirthday` function from last lesson?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "specialBirthday :: Int -> [Char]\n",
+    "specialbirthday age =\n",
+    "  if age == 1\n",
+    "    then \"First birthday!\"\n",
+    "    else\n",
+    "      if age == 18\n",
+    "        then \"You're an adult!\"\n",
+    "        else\n",
+    "          if age == 60\n",
+    "            then \"Finally, I can stop caring about new lingo!\"\n",
+    "            else \"Nothing special\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "I know, I know... we fixed that atrocity with guards. But now, we'll get fancier and solve it with pattern matching!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "To pattern match on function definitions, we just have to define the same function multiple times, replacing the parameters with values. Like this:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "specialBirthday :: Int -> [Char]\n",
+    "specialBirthday 1   = \"First birthday!\"\n",
+    "specialBirthday 18  = \"You're an adult!\"\n",
+    "specialBirthday 60  = \"finally, I can stop caring about new lingo!\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Our function has been defined! And it looks way nicer than before!\n",
+    "\n",
+    "And how does it work? Well, when presented with code like this, Haskell will attempt to match the value of `age` with the first definition. If `age /= 1`, it will try to match the second definition. If `age /= 18`, it will try to match the third definition. And so on until the value passed as a parameter matches one of the definition's values."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "And, of course, I'm sure you noticed a huge problem. What happens if we pass a number different from the ones defined? Like 29? We can solve that with catch-all patterns!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "source": [
+    "### Catch-all patterns"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "The function's signature clearly states that you can pass any value of type `Int`.\n",
+    "\n",
+    "So, we could pass `14`—per example—or any other number, for that matter. But what should the function do if we pass `14`? We didn't specify it because we didn't pattern match for `14`! So, the program will crash 💥 because it doesn't know how to handle that value! 😱\n",
+    "\n",
+    "Because we need the function to work with any value that our types can accept, we need to pattern match for all possible situations. But you can't write a definition for every single value! Then, what can you do?!?!\n",
+    "\n",
+    "You use a catch-all pattern!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "source": [
+    "**Catch-all patterns allow you to provide a default definition in case none of your specific ones match**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "In this case, it'll play the role of the `else` at the end of `specialBirthday`."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "source": [
+    "To use catch-all patterns, you have to provide a name that starts with lowercase, like `age`, `x`, or `yearsSinceThisPoorSoulHasTouchedTheEarth`."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Like this:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"You're an adult!\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "specialBirthday :: Int -> [Char]\n",
+    "specialBirthday 1   = \"First birthday!\"\n",
+    "specialBirthday 18  = \"You're an adult!\"\n",
+    "specialBirthday 60  = \"finally, I can stop caring about new lingo!\"\n",
+    "specialBirthday age = \"Nothing special\"\n",
+    "\n",
+    "specialBirthday 18"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Now, if we pass any number different from `1`, `18`, or `60`, `specialBirthday` will evaluate to `\"Nothing special\"`."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "source": [
+    "<div class=\"alert alert-block alert-warning\">\n",
+    "<b>IMPORTANT:</b> Always provide Pattern matches for all possible scenarios!\n",
+    "If you don't, you'll get the next warning:\n",
+    "    \n",
+    "`Pattern match(es) are non-exhaustive In an equation for specialBirthday`\n",
+    "\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Another important detail is that Haskell matches from top to bottom. So, if you do something like:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 62,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"Nothing special\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "specialBirthday :: Int -> [Char]\n",
+    "specialBirthday age = \"Nothing special\"\n",
+    "specialBirthday 1   = \"First birthday!\"\n",
+    "specialBirthday 18  = \"You're an adult!\"\n",
+    "specialBirthday 60  = \"finally, I can stop caring about new lingo!\"\n",
+    "\n",
+    "specialBirthday 60"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "The first definition will catch all the occurrences, and we'll always get `\"Nothing special\"` as a result, no matter the number we pass. So, make sure to add the catch-all pattern as the last definition."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Finally, we said that you can optionally **bind variables to successful matches**, and that's what we just did!\n",
+    "\n",
+    "When using `specialBirthday`, every time the value falls into the `age` catch-all pattern, we bind that value to the `age` variable. Allowing us to use the value inside the definition's expression (it's just an argument)!:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 63,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"Nothing special, you're just 22\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "-- Note: You should know how to use `show` if you did last week homework.\n",
+    "\n",
+    "specialBirthday :: Int -> [Char]\n",
+    "specialBirthday 1   = \"First birthday!\"\n",
+    "specialBirthday 18  = \"You're an adult!\"\n",
+    "specialBirthday 60  = \"finally, I can stop caring about new lingo!\"\n",
+    "specialBirthday age = \"Nothing special, you're just \" ++ show age\n",
+    "\n",
+    "specialBirthday 22"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "You cannot overstate how useful this is! **You're filtering values to the ones that match a specific pattern AND binding those values to variables for later use at the same time!**\n",
+    "\n",
+    "A more compelling example of how this is useful is when pattern matching more complex structures like lists and tuples. Let's explore that."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "source": [
+    "## A closer look at lists"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Before learning about pattern matching with lists, we need to take a closer look at lists."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "We know that the `:` (cons) operator adds an element to the beginning of a list (prepends an element):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 64,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[3,4,5]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"Look, mom! I'm programming\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "-- (:) :: a -> [a] -> [a]\n",
+    "\n",
+    "3 : [4,5]  -- [3,4,5]\n",
+    "\n",
+    "'L' : \"ook, mom! I'm programming\"  -- \"I'm programming\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Remember when I told you that `String` was syntactic sugar for `[Char]`? Well, get ready for a sugar rush because **the way we wrote lists so far is actually syntactic sugar for the real way Haskell sees lists! As an empty list prepended with all the elements that it contains!** 🤯"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style>/* Styles used for the Hoogle display in the pager */\n",
+       ".hoogle-doc {\n",
+       "display: block;\n",
+       "padding-bottom: 1.3em;\n",
+       "padding-left: 0.4em;\n",
+       "}\n",
+       ".hoogle-code {\n",
+       "display: block;\n",
+       "font-family: monospace;\n",
+       "white-space: pre;\n",
+       "}\n",
+       ".hoogle-text {\n",
+       "display: block;\n",
+       "}\n",
+       ".hoogle-name {\n",
+       "color: green;\n",
+       "font-weight: bold;\n",
+       "}\n",
+       ".hoogle-head {\n",
+       "font-weight: bold;\n",
+       "}\n",
+       ".hoogle-sub {\n",
+       "display: block;\n",
+       "margin-left: 0.4em;\n",
+       "}\n",
+       ".hoogle-package {\n",
+       "font-weight: bold;\n",
+       "font-style: italic;\n",
+       "}\n",
+       ".hoogle-module {\n",
+       "font-weight: bold;\n",
+       "}\n",
+       ".hoogle-class {\n",
+       "font-weight: bold;\n",
+       "}\n",
+       ".get-type {\n",
+       "color: green;\n",
+       "font-weight: bold;\n",
+       "font-family: monospace;\n",
+       "display: block;\n",
+       "white-space: pre-wrap;\n",
+       "}\n",
+       ".show-type {\n",
+       "color: green;\n",
+       "font-weight: bold;\n",
+       "font-family: monospace;\n",
+       "margin-left: 1em;\n",
+       "}\n",
+       ".mono {\n",
+       "font-family: monospace;\n",
+       "display: block;\n",
+       "}\n",
+       ".err-msg {\n",
+       "color: red;\n",
+       "font-style: italic;\n",
+       "font-family: monospace;\n",
+       "white-space: pre;\n",
+       "display: block;\n",
+       "}\n",
+       "#unshowable {\n",
+       "color: red;\n",
+       "font-weight: bold;\n",
+       "}\n",
+       ".err-msg.in.collapse {\n",
+       "padding-top: 0.7em;\n",
+       "}\n",
+       ".highlight-code {\n",
+       "white-space: pre;\n",
+       "font-family: monospace;\n",
+       "}\n",
+       ".suggestion-warning { \n",
+       "font-weight: bold;\n",
+       "color: rgb(200, 130, 0);\n",
+       "}\n",
+       ".suggestion-error { \n",
+       "font-weight: bold;\n",
+       "color: red;\n",
+       "}\n",
+       ".suggestion-name {\n",
+       "font-weight: bold;\n",
+       "}\n",
+       "</style><div class=\"suggestion-name\" style=\"clear:both;\">Use list literal</div><div class=\"suggestion-row\" style=\"float: left;\"><div class=\"suggestion-warning\">Found:</div><div class=\"highlight-code\" id=\"haskell\">1 : 2 : 3 : 4 : []</div></div><div class=\"suggestion-row\" style=\"float: left;\"><div class=\"suggestion-warning\">Why Not:</div><div class=\"highlight-code\" id=\"haskell\">[1, 2, 3, 4]</div></div><div class=\"suggestion-name\" style=\"clear:both;\">Use list literal</div><div class=\"suggestion-row\" style=\"float: left;\"><div class=\"suggestion-warning\">Found:</div><div class=\"highlight-code\" id=\"haskell\">'H' : 'e' : 'l' : 'l' : 'o' : '!' : []</div></div><div class=\"suggestion-row\" style=\"float: left;\"><div class=\"suggestion-warning\">Why Not:</div><div class=\"highlight-code\" id=\"haskell\">['H', 'e', 'l', 'l', 'o', '!']</div></div>"
+      ],
+      "text/plain": [
+       "Line 1: Use list literal\n",
+       "Found:\n",
+       "1 : 2 : 3 : 4 : []\n",
+       "Why not:\n",
+       "[1, 2, 3, 4]Line 3: Use list literal\n",
+       "Found:\n",
+       "'H' : 'e' : 'l' : 'l' : 'o' : '!' : []\n",
+       "Why not:\n",
+       "['H', 'e', 'l', 'l', 'o', '!']"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "[1,2,3,4] == 1:2:3:4:[]  -- True\n",
+    "\n",
+    "\"Hello!\"  == 'H':'e':'l':'l':'o':'!':[]  -- True"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Now, you could be thinking: \"Why do I care? I'll keep writing lists as always.\" To what I say: \"AHA! PATTERN MATCHING!!\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "source": [
+    "## Pattern matching lists"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Now that we know what lists look like without makeup 💅, we can use it to pattern match different function definitions depending on the list's structure!\n",
+    "\n",
+    "Let's pattern match in a bunch of different ways and investigate how the code works later:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 66,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<style>/* Styles used for the Hoogle display in the pager */\n",
+       ".hoogle-doc {\n",
+       "display: block;\n",
+       "padding-bottom: 1.3em;\n",
+       "padding-left: 0.4em;\n",
+       "}\n",
+       ".hoogle-code {\n",
+       "display: block;\n",
+       "font-family: monospace;\n",
+       "white-space: pre;\n",
+       "}\n",
+       ".hoogle-text {\n",
+       "display: block;\n",
+       "}\n",
+       ".hoogle-name {\n",
+       "color: green;\n",
+       "font-weight: bold;\n",
+       "}\n",
+       ".hoogle-head {\n",
+       "font-weight: bold;\n",
+       "}\n",
+       ".hoogle-sub {\n",
+       "display: block;\n",
+       "margin-left: 0.4em;\n",
+       "}\n",
+       ".hoogle-package {\n",
+       "font-weight: bold;\n",
+       "font-style: italic;\n",
+       "}\n",
+       ".hoogle-module {\n",
+       "font-weight: bold;\n",
+       "}\n",
+       ".hoogle-class {\n",
+       "font-weight: bold;\n",
+       "}\n",
+       ".get-type {\n",
+       "color: green;\n",
+       "font-weight: bold;\n",
+       "font-family: monospace;\n",
+       "display: block;\n",
+       "white-space: pre-wrap;\n",
+       "}\n",
+       ".show-type {\n",
+       "color: green;\n",
+       "font-weight: bold;\n",
+       "font-family: monospace;\n",
+       "margin-left: 1em;\n",
+       "}\n",
+       ".mono {\n",
+       "font-family: monospace;\n",
+       "display: block;\n",
+       "}\n",
+       ".err-msg {\n",
+       "color: red;\n",
+       "font-style: italic;\n",
+       "font-family: monospace;\n",
+       "white-space: pre;\n",
+       "display: block;\n",
+       "}\n",
+       "#unshowable {\n",
+       "color: red;\n",
+       "font-weight: bold;\n",
+       "}\n",
+       ".err-msg.in.collapse {\n",
+       "padding-top: 0.7em;\n",
+       "}\n",
+       ".highlight-code {\n",
+       "white-space: pre;\n",
+       "font-family: monospace;\n",
+       "}\n",
+       ".suggestion-warning { \n",
+       "font-weight: bold;\n",
+       "color: rgb(200, 130, 0);\n",
+       "}\n",
+       ".suggestion-error { \n",
+       "font-weight: bold;\n",
+       "color: red;\n",
+       "}\n",
+       ".suggestion-name {\n",
+       "font-weight: bold;\n",
+       "}\n",
+       "</style><div class=\"suggestion-name\" style=\"clear:both;\">Use list literal pattern</div><div class=\"suggestion-row\" style=\"float: left;\"><div class=\"suggestion-warning\">Found:</div><div class=\"highlight-code\" id=\"haskell\">(x : y : z : [])</div></div><div class=\"suggestion-row\" style=\"float: left;\"><div class=\"suggestion-warning\">Why Not:</div><div class=\"highlight-code\" id=\"haskell\">[x, y, z]</div></div>"
+      ],
+      "text/plain": [
+       "Line 5: Use list literal pattern\n",
+       "Found:\n",
+       "(x : y : z : [])\n",
+       "Why not:\n",
+       "[x, y, z]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"It's empty!\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"Two elements: 1 and 2\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"The list has three elements: [1,2,3]\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"The first element is: 1, and there are quite a few more!\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "whatsInsideThisList :: [Int] -> String\n",
+    "whatsInsideThisList []         = \"It's empty!\"\n",
+    "whatsInsideThisList [x]        = \"A single element: \" ++ show x\n",
+    "whatsInsideThisList [x, y]     = \"Two elements: \" ++ show x ++ \" and \" ++ show y\n",
+    "whatsInsideThisList (x:y:z:[]) = \"The list has three elements: \" ++ show [x,y,z]\n",
+    "whatsInsideThisList (x:rest)   = \"The first element is: \" ++ show x ++ \", and there are quite a few more!\"\n",
+    "\n",
+    "whatsInsideThisList []           -- \"It's empty!\"\n",
+    "whatsInsideThisList [1, 2]       -- \"Two elements: 1 and 2\"\n",
+    "whatsInsideThisList [1, 2, 3]    -- \"The list has three elements: [1,2,3]\"\n",
+    "whatsInsideThisList [1, 2, 3, 4] -- \"The first element is: 1, and there are quite a few more!\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "As you can see, you can pattern match for:\n",
+    "\n",
+    "* Empty list `[]`.\n",
+    "\n",
+    "* List of fixed size, both with (`[x]`, `[x,y]`) and without (`x:[]`,`x:y:[]`) syntactic sugar.\n",
+    "\n",
+    "* Non-empty lists of any size with `x:rest`. (Commonly used in recursive functions and usually named `x:xs`.)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "<div class=\"alert alert-block alert-info\">\n",
+    "We surround with `()` the patterns of the last two definitions to indicate that the function takes everything inside the `()` as a single argument.\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "And, because we bound the matches to variables (`x`, `y`,`z`, `rest`), you can use those variables inside the function's definition.\n",
+    "\n",
+    "But what if you don't need them? What if you want to do something when a specific pattern matches, but don't care for the actual value/values?\n",
+    "\n",
+    "**Binding values and then ignoring them pollutes your environment with variables you'll never use!** But don't worry. To put the cherry on top, you can ignore the data you don't care for while pattern matching for the rest! Take a look at the following function. It tells us which are the first and third elements in a list of `Bool` (if any):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 67,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"The first and third elements are: True and False\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "firstAndThird :: [Bool] -> String\n",
+    "firstAndThird (x:_:z:_) = \"The first and third elements are: \" ++ show x ++ \" and \" ++ show z\n",
+    "firstAndThird _ = \"Don't have them!\"\n",
+    "\n",
+    "firstAndThird [True, True, False]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "The first definition will pattern match for any list with 3 or more elements, while `_` will ignore the second element and the rest of the list. \n",
+    "\n",
+    "And for any other list, we just entirely ignore it with `_` for the whole list."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Awesome, right? Knowing this, we can modify the `initials` function of the last lesson from this:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 71,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"N.T.\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "initials :: String -> String -> String\n",
+    "initials name lastName = if name == \"\" || lastName == \"\"\n",
+    "                         then \"How was your name again?\"\n",
+    "                         else let x = head name\n",
+    "                                  y = head lastName\n",
+    "                              in [x] ++ \".\" ++ [y] ++ \".\"\n",
+    "\n",
+    "initials' \"Nikola\" \"Tesla\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "To this:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 68,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"N.T.\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "initials' :: String -> String -> String  \n",
+    "initials' (f:_) (l:_) = [f] ++ \".\" ++ [l] ++ \".\" \n",
+    "initials' _ _ = \"How was your name again?\"\n",
+    "\n",
+    "initials' \"Nikola\" \"Tesla\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Shorter and clearer."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Now let's see how pattern matching makes our lives easier with tuples!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "source": [
+    "## Pattern matching tuples"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "As you can recall from previous lessons, we could only get the elements inside a pair (tuple of two elements) using the `fst` and `snd` functions.\n",
+    "\n",
+    "If you needed a value from tuples bigger than that, you were in a pickle. 👀 But now that you're a pattern-matching magician 🪄, the sky is the limit!\n",
+    "\n",
+    "Want to extract the first element of a 3-element tuple? No problem:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 69,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "1"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "firstOfThree :: (a, b, c) -> a\n",
+    "firstOfThree (x, _, _) = x\n",
+    "\n",
+    "firstOfThree (1,2,3)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "**Done!**\n",
+    "\n",
+    "Want to create a pair with the second and fourth elements of a 4-element tuple? Same as before!:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 70,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(2,4)"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "pairFromFour :: (a, b, c, d) -> (b, d)\n",
+    "pairFromFour (_, x, _, y) = (x, y)\n",
+    "\n",
+    "pairFromFour (1,2,3,4)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "**BOOM! 💥 Done!** And you can keep going if you want. But, right now, we're going to move to `case` expressions."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "source": [
+    "## Case expressions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "With `case` expressions, we can execute a specific block of code based on a variable's pattern."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Same as with `switch` statements in other programming languages. `case` expressions look like this:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "source": [
+    "\n",
+    "```haskell\n",
+    "case <Exp> of <Pattern1> -> <Result1>\n",
+    "              <Pattern2> -> <Result2>\n",
+    "              <Pattern3> -> <Result3>\n",
+    "\t          ...\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Where the value of `<Exp>` is compared to every `<Pattern>` inside the `of` block. And if it matches, the corresponding `<Result>` is evaluated.\n",
+    "\n",
+    "(Notice that there's no `=` sign! That's because the entire `case` expression is just an expression. Not a function or a binding.)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "As an example, we can write a function that takes a 3-`Int` tuple and checks if any of the elements it contains is a zero:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 72,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"The second one is a zero!\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "checkForZeroes :: (Int, Int, Int) -> String\n",
+    "checkForZeroes tuple3 = case tuple3 of\n",
+    "  (0, _, _) -> \"The first one is a zero!\"\n",
+    "  (_, 0, _) -> \"The second one is a zero!\"\n",
+    "  (_, _, 0) -> \"The third one is a zero!\"\n",
+    "  _         -> \"We're good!\"\n",
+    "  \n",
+    "checkForZeroes (32,0,256)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "And I already can hear you saying. \"Isn't the end result the same that we got when pattern matching on parameters in function definitions?\"\n",
+    "\n",
+    "Well... yes. At its core, pattern matching on parameters in function definitions is just syntactic sugar for case expressions! So, the previous code is interchangeable with this one:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 73,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"The second one is a zero!\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "checkForZeroes :: (Int, Int, Int) -> String\n",
+    "checkForZeroes (0, _, _) = \"The first one is a zero!\"\n",
+    "checkForZeroes (_, 0, _) = \"The second one is a zero!\"\n",
+    "checkForZeroes (_, _, 0) = \"The third one is a zero!\"\n",
+    "checkForZeroes _         = \"We're good!\"\n",
+    "\n",
+    "checkForZeroes (32,0,256)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "But! Because now we're using case EXPRESSIONS, we can use them anywhere an expression can be used! Not only when defining a function. So, for example, we can concatenate the result of evaluating the case expression with another String:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 74,
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"The (32,0,256) has a zero as its second element\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "checkForZeroes' :: (Int, Int, Int) -> String\n",
+    "checkForZeroes' tuple3 = \"The \" ++ show tuple3 ++ \" has \" ++\n",
+    "    case tuple3 of\n",
+    "      (0, _, _) -> \"a zero as its first element\"\n",
+    "      (_, 0, _) -> \"a zero as its second element\"\n",
+    "      (_, _, 0) -> \"a zero as its third element\"\n",
+    "      _         -> \"no zeroes!\"\n",
+    "\n",
+    "checkForZeroes' (32,0,256)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "That makes `case` expressions convenient to use inside other expressions. But also, keep in mind that anything that you can do with `case` expressions can be done by defining functions with `let`, `where`, or guards.\n",
+    "\n",
+    "And that begs the question: \"Why do we have so many ways of doing the same thing?!\" I'll tell you why..."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "source": [
+    "## Declaration style 🆚 Expression style"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "There are two main styles for writing functional programs in Haskell:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "source": [
+    "- The **declaration style** is where you formulate an algorithm in terms of several equations to be satisfied.\n",
+    "- The **expression style** is where you compose big expressions from small expressions."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "Many moons ago, the <s>creators of</s> Haskell gods engaged in furious debate as to which style was better. Mainly because if there was possible, having just one way of doing something provided less confusion and redundancy. But! After blood, sweat, and tears were shed, they decided to provide full syntactic support to both. And let the mere mortals use what they like best.\n",
+    "\n",
+    "As examples of this, we got:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "fragment"
+    }
+   },
+   "source": [
+    "| Declaration style                                      | Expression style                                    |\n",
+    "|--------------------------------------------------------|-----------------------------------------------------|\n",
+    "| `where` clause                                         | `let` expressions                                   |\n",
+    "| Pattern matching in function definitions: `f [] = 0`   | case expression: `f xs = case xs of [] -> 0`        |\n",
+    "| Guards on function definitions: `f [x] \\| x > 0 = 'a'` | `if` expression: `f [x] if x > 0 then 'a' else...`  |\n",
+    "| Function arguments on left-hand side: `f x = x*x`      | Lambda abstraction: `f = \\x -> x*x`                 |"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "notes"
+    }
+   },
+   "source": [
+    "And what's that lambda thing at the end of the table? That's a subject for next week's lesson! 😁 So make sure to watch it!\n",
+    "\n",
+    "Now, as a summary:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    }
+   },
+   "source": [
+    "## Summary\n",
+    "\n",
+    "* Pattern matching for function definitions makes it straightforward to do different things depending on the structure or value of the arguments.\n",
+    "\n",
+    "* Pattern matching on tuples, lists, and other structures, allows you to easily extract the values contained.\n",
+    "\n",
+    "* Case expressions are a more expressive way of pattern-matching function definitions, but they can also be used almost everywhere as any other expression. (Not only to define functions.)\n",
+    "\n",
+    "* The two main styles for writing functional programming in Haskell are the \"Declaration style\" and \"Expression style.\" Don't waste time arguing about which one is the best. Adopt the one you like more, or mix and match as you want."
+   ]
+  }
+ ],
+ "metadata": {
+  "celltoolbar": "Slideshow",
+  "kernelspec": {
+   "display_name": "Haskell",
+   "language": "haskell",
+   "name": "haskell"
+  },
+  "language_info": {
+   "codemirror_mode": "ihaskell",
+   "file_extension": ".hs",
+   "mimetype": "text/x-haskell",
+   "name": "haskell",
+   "pygments_lexer": "Haskell",
+   "version": "8.10.7"
+  },
+  "rise": {
+   "enable_chalkboard": true,
+   "header": "<img style=\"position: relative; left: 1230px; width: 200px; top: 10px;\" src=\"https://raw.githubusercontent.com/rober-m/haskell-bootcamp/main/images/input-output.svg\"/>"
+  },
+  "vscode": {
+   "interpreter": {
+    "hash": "e7370f93d1d0cde622a1f8e1c04877d8463912d04d973331ad4851f04de6915a"
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
