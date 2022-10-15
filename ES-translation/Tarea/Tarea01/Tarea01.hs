@@ -1,17 +1,15 @@
--- Las respuestas están en la rama: solutions-es
 
--- Pregunta 1
--- Escribe un comentario multilinea.
+-- Ejercicio 1
+-- Escribe debajo un comentario multi línea
 
--- Pregunta 2
--- Define una función que toma un valor y lo mulitplica por 3.
+-- Ejercicio 2
+-- Define una función que tome un valor y lo multiplique por 3.
 
--- Pregunta 3
--- Define una función que calcule el área de un círculo.
+-- Ejercicio 3
+-- Define una función que calculé el área de un círculo.
 
--- Pregunta 4
--- Define una función que calcule el volúmen de un cilindro usando la función previa.
+-- Ejercicio 4 
+-- Define una función que calculé el volumen de un cilindro realizando composición de la función previa junto con la altura del cilindro.
 
--- Pregunta 5
--- Define una función que chequee si el volúmen de un cilindro es mayor o igual a 42.
-
+-- Ejercicio 5
+-- Define una función que controla si el volumen de un cilindro es mayor o igual a 42.
