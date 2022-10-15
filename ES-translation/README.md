@@ -2,7 +2,7 @@
 >Esta es una traducción curso de Haskell de IOG, supervisada por Robertino 😇, con el objetivo de ofrecer a la comunidad hispana de Haskell/Cardano una herramienta de aprendizaje en su idioma. Cualquier miembro de la comunidad puede realizar su aporte/sugerencia.
 >>Todos los comentarios de la traducción estarán en bloques como estos.
 
-**Este curso está diseñado para que sus estudiantes puedan aprender Haskell desde cero, hasta tener el conocimiento necesario para trabajar con Marlowe y Plutus.** El curso en sí no contiene explicaciones sobre Marlowe o Plutus. Por lo tanto, si deseas aprender Haskell para otros usos, podés hacerlo! 😃
+**Este curso está diseñado para que sus estudiantes puedan aprender Haskell desde cero, hasta tener el conocimiento necesario para trabajar con Marlowe y Plutus.** El curso en sí no contiene explicaciones sobre Marlowe o Plutus. Por lo tanto, si deseas aprender Haskell para otros usos, ¡podés hacerlo! 😃
 
 Para más información, continúa leyendo o mira este video introductorio:
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)](https://youtu.be/H1vbUKMKvnM)
