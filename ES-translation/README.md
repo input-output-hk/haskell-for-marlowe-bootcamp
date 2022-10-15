@@ -1,4 +1,5 @@
 # Curso de Haskell - Traducción de la comunidad
+
 >Esta es una traducción del curso de Haskell de IOG, supervisada por Robertino 😇, con el objetivo de ofrecer a la comunidad hispana de Haskell/Cardano una herramienta de aprendizaje en su idioma. Cualquier miembro de la comunidad puede realizar su aporte/sugerencia.
 >>Todos los comentarios de la traducción estarán en bloques como estos.
 
