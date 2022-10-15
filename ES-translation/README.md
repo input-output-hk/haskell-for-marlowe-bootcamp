@@ -26,7 +26,7 @@ Para ver el video, clickea el botón que se ve como éste:
 2. Cloná este repositorio.
 3. Crea una cuenta de [GitPod](https://www.gitpod.io/).
 4. Hacé click en este botón para crear un entorno de desarrollo remoto: [![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=flat&logo=visual-studio-code&logoColor=white)](https://gitpod.io/#https://github.com/input-output-hk/haskell-course)
-5. Selecciona la carpeta `Homework/HomeworkXX` con la tarea que desees completar.
+5. Selecciona la carpeta `Tarea/TareaXX` con la tarea que desees completar.
 6. Seguí las instrucciones del archivo app/Main.hs.
 8. ¡Revisá las soluciones dentro de la rama "solutions-es"!
 
