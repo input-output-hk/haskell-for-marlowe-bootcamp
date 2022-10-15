@@ -62,7 +62,7 @@ Todo el resto puede ser ignorado
 
 **Si no hay botones en una lección, todavía no está publicada.**
 
-### 1. Intro y herramientas [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/vamanfredi/haskell-course/HEAD?labpath=%2Flessons%2F01-Introducci%C3%B3n-a-haskell.ipynb) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)](https://youtu.be/pkU8eiNZipQ)
+### 1. Intro y herramientas [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/vamanfredi/haskell-course-ES/HEAD?labpath=ES-translation%2FLecciones%2F01-Introducci%C3%B3n-a-haskell.ipynb) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)](https://youtu.be/pkU8eiNZipQ)
 
 - Introducción al curso y las clases
   - Qué cubriremos
