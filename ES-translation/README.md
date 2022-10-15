@@ -54,7 +54,7 @@ Todo el resto puede ser ignorado
 
 ## Preguntas Frecuentes
 
-[FAQ](FAQ.md)
+[Preguntas Frecuentes](PreguntasFrecuentes.md)
 
 ## Lo que cubriremos
 
