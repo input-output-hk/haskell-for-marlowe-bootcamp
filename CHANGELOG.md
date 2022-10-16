@@ -1,5 +1,5 @@
 # Revision history for haskell-bootcamp
 
-## 0.1.0.0 -- YYYY-mm-dd
+## 0.1.0.0 -- 2022-10-16
 
-* First version. Released on an unsuspecting world.
+HSKL-homework-01: Completed Homework01 assignment
