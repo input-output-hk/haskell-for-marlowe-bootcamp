@@ -26,7 +26,7 @@ circleArea r = pi * r^2
 cilinderArea r h = circleArea r * h
 
 -- Question 5
--- Define a function that checks if the volume of a cylinder is greater than or equal to 42.
+-- Define a function that takes the height and radius of a cylinder and checks if the volume is greater than or equal to 42.
 
 checkVolume r h = cilinderArea r h >=42
 
