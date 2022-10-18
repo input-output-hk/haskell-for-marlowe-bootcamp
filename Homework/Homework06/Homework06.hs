@@ -5,11 +5,11 @@
 
 -- Question 2
 -- Write a function that takes in a list of integers and removes from it the smallest
--- element. If the element is occuring more then once, it should remove only the first
--- occurence of the smallest element.
+-- element. If the element is occurring more then once, it should remove only the first
+-- occurrence of the smallest element.
 
--- Chalange: Write the this function in such a way that if you add some code to it and
--- not remove any, the function will be removing all instances of the smallest eleement.
+-- Challenge: Write the this function in such a way that if you add some code to it and
+-- not remove any, the function will be removing all instances of the smallest element.
 
 
 -- Question 3
