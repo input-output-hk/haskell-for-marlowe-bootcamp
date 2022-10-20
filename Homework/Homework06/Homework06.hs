@@ -66,7 +66,7 @@
 
 
 -- Question 6
--- Write a function called `takeWhile'` that takes a precate and a list and
+-- Write a function called `takeWhile'` that takes a predicate and a list and
 -- returns the list up until an element that doesn't satisfy the predicate.
 --
 -- >>> takeWhile (< 3) [1,2,3,4,1,2,3,4]
