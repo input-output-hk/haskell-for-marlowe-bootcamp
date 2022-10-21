@@ -21,7 +21,7 @@ repeat' x = x : repeat' x
 -- [True,True,True,True]
 
 replicate :: Int -> a -> [a]
-replicate n x = take n (repeat x)
+replicate n x = take n (repeat' x)
 
 -- Question 3
 -- Write a function called `concat'` that concatenates a list of lists.
