@@ -11,6 +11,9 @@ f2 x y z = sqrt (x/y - z)
 f3 :: Bool -> Bool -> [Bool]
 f3 x y = [x == True] ++ [y]
 
+f4 :: String -> [Char] -> [Char] -> Bool
+f4 x y z = x == (y ++ z)
+
 f5 :: String -> String -> String -> Bool
 f5 x y z = x == (y ++ z)
 
