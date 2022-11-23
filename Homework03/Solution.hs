@@ -37,6 +37,7 @@ checkConsumption consumption time maxC
 
 guardsAndIf :: Double -> Double -> String
 guardsAndIf a b
+  | a < 0 && b < 0 = if (a < b) then show (b / a) else show (a / b)
   | a > b = if a /= 0 then show (a/b) else "a is larger but 0"
   | a < b = if b /= 0 then show (b/a) else "b is larger but 0"
   | otherwise = if a /= 0 then "1" else "a and b are both 0"
