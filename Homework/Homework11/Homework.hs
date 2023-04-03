@@ -15,8 +15,9 @@ You can hover over the functions to know what they do.
 
 {-
 -- Question 1 --
-Define an IO action that counts the number of files in the current directory
+Define an IO action that counts the number of all enteries in the current directory
 and prints it to the terminal inside a string message.
+(hidden files are not included)
 -}
 
 -- listFiles :: IO ()
