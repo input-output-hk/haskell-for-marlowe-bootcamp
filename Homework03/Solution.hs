@@ -37,11 +37,10 @@ checkConsumption consumption time maxC
 
 guardsAndIf :: Double -> Double -> String
 guardsAndIf a b
-  | a < 0 && b < 0 = if (a < b) then show (b / a) else show (a / b)
-  | a > b = if a /= 0 then show (a/b) else "a is larger but 0"
-  | a < b = if b /= 0 then show (b/a) else "b is larger but 0"
-  | otherwise = if a /= 0 then "1" else "a and b are both 0"
-
+  | a < 0 && b < 0 =  if a > b then show (a / b) else show (b / a)
+  | a > 0 && b > 0  = if a < b then show (a / b) else show (b / a)
+  | a /= b          = if a /= 0 then show (b / a) else show (a / b)
+  | otherwise        = "a and b are both 0"
 
 -- Question 5
 -- Write a function that takes in two numbers and calculates the sum of square roots for the product and quotient
